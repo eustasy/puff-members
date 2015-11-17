@@ -1,17 +1,16 @@
 <?php
 
-function Puff_Member_Create($Username, $EMail = false, $Password, $Connection) {
+function Puff_Member_Create($Username, $Password, $Connection) {
 
 	$Member['Username'] = $Username;
-	$Member['EMail']    = $EMail;
 	$Member['Password'] = $Password;
 	$Member['PassHash'] = 'sha512';
 
 	////	Check Member Existence
 	// For the sake of the space-time continuum,
 	// new users should not already exist.
-	$Member['Username'] = htmlentities($Member['Username'], ENT_QUOTES, 'UTF-8');
-	$MemberExists = mysqli_fetch_count($Connection, 'SELECT * FROM `Members` WHERE `Username`=\''.$Member['Username'].'\';');
+	$Member['Username'] = Puff_Member_Sanitize_Username($Member['Username']);
+	$MemberExists = Puff_Member_Exists($Member['Username'], $Connection);
 	if ( $MemberExists ) {
 		// TODO Try to log-in instead.
 		return array('error' => 'Sorry, that username is not available. Please choose a different username, or login if this is your username.');
@@ -41,7 +40,7 @@ function Puff_Member_Create($Username, $EMail = false, $Password, $Connection) {
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password']);
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password'] . $Member['Salt']);
 
-	$Result = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`, `EMail`, `Password`, `Salt`, `PassHash`) VALUES (\''.$Member['Username'].'\', \''.$Member['EMail'].'\', \''.$Member['Password'].'\', \''.$Member['Salt'].'\', \''.$Member['PassHash'].'\');');
+	$Result = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`, `Password`, `Salt`, `PassHash`) VALUES (\''.$Member['Username'].'\', \''.$Member['Password'].'\', \''.$Member['Salt'].'\', \''.$Member['PassHash'].'\');');
 	return $Result;
 
 }
