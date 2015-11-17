@@ -3,18 +3,18 @@
 function Puff_Member_Create($Username, $EMail = false, $Password, $Connection) {
 
 	$Member['Username'] = $Username;
-	$Member['EMail'] = $EMail;
+	$Member['EMail']    = $EMail;
 	$Member['Password'] = $Password;
 	$Member['PassHash'] = 'sha512';
 
 	////	Check Member Existence
 	// For the sake of the space-time continuum,
 	// new users should not already exist.
-	// TODO Realise
-	$MemberExists = false;
+	$Member['Username'] = htmlentities($Member['Username'], ENT_QUOTES, 'UTF-8');
+	$MemberExists = mysqli_fetch_count($Connection, 'SELECT * FROM `Members` WHERE `Username`=\''.$Member['Username'].'\';');
 	if ( $MemberExists ) {
 		// TODO Try to log-in instead.
-		return array('error' => 'Sorry, that username is not available. Please choose a different username, or login if this is yur username.');
+		return array('error' => 'Sorry, that username is not available. Please choose a different username, or login if this is your username.');
 	}
 
 	////	Generate a Salt
@@ -41,6 +41,7 @@ function Puff_Member_Create($Username, $EMail = false, $Password, $Connection) {
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password']);
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password'] . $Member['Salt']);
 
-	return $Member;
+	$Result = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`, `EMail`, `Password`, `Salt`, `PassHash`) VALUES (\''.$Member['Username'].'\', \''.$Member['EMail'].'\', \''.$Member['Password'].'\', \''.$Member['Salt'].'\', \''.$Member['PassHash'].'\');');
+	return $Result;
 
 }

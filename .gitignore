@@ -6,6 +6,7 @@ index.php
 *~
 # puff-db
 _functions/mysqli_fetch_once.php
+_functions/mysqli_fetch_count.php
 _puff/hooks/preload/connect-to-database.php
 _puff/settings/db.php
 # puff-core
