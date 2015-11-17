@@ -28,6 +28,11 @@ function Puff_Member_Session_Create($Username, $Connection) {
 	}
 	$Session = bin2hex($Session);
 
+	// Collision Chance:
+	// 16 base
+	// 128 characters
+	// 16^128 = 1.34*10^124
+
 	////	Insert into Database
 	$Result = mysqli_query($Connection, 'INSERT INTO `Sessions` (`Username`, `Session`) VALUES (\''.$Username.'\', \''.$Session.'\');');
 	return $Result;
