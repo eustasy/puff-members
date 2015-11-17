@@ -11,7 +11,8 @@ function Puff_Member_Disable($Username, $Connection) {
 		return array('warning' => 'Sorry, that user does not exist. I guess that means it\'s sort of disabled already?');
 	}
 
-	////	TODO Disable existing Sessions
+	////	Disable existing Sessions
+	Puff_Member_Session_Disable_All($Username, $Connection);
 
 	////	Disable the User
 	$Result = mysqli_query($Connection, 'UPDATE `Members` SET `Active`=\'0\' WHERE `Username`=\''.$Username.'\';');
