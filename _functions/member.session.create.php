@@ -28,7 +28,7 @@ function Puff_Member_Session_Create($Username, $Connection) {
 	}
 	$Session = bin2hex($Session);
 
-	// Collision Chance:
+	////	Collision Chance
 	// 16 base
 	// 128 characters
 	// 16^128 = 1.34*10^124
