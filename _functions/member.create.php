@@ -40,6 +40,7 @@ function Puff_Member_Create($Username, $Password, $Connection) {
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password']);
 	$Member['Password'] = hash($Member['PassHash'], $Member['Password'] . $Member['Salt']);
 
+	////	Insert into Database
 	$Result = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`, `Password`, `Salt`, `PassHash`) VALUES (\''.$Member['Username'].'\', \''.$Member['Password'].'\', \''.$Member['Salt'].'\', \''.$Member['PassHash'].'\');');
 	return $Result;
 

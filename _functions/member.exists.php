@@ -1,6 +1,11 @@
 <?php
 
-function Puff_Member_Exists($Username, $Connection) {
-	$MemberExists = mysqli_fetch_count($Connection, 'SELECT * FROM `Members` WHERE `Username`=\''.$Username.'\';');
+function Puff_Member_Exists($Username, $Connection, $Active = false) {
+	$SQL = 'SELECT * FROM `Members` WHERE `Username`=\''.$Username.'\'';
+	if ( $Active ) {
+		$SQL .= ' AND `Active`=\'1\'';
+	}
+	$SQL .= ';';
+	$MemberExists = mysqli_fetch_count($Connection, $SQL);
 	return $MemberExists;
 }
