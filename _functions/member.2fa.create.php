@@ -1,6 +1,7 @@
 <?php
 
 function Puff_Member_2FA_Create($Username, $Connection) {
+	global $Sitewide;
 
 	require_once $Sitewide['Puff']['Libs'].'authenticatron.php';
 
@@ -17,7 +18,7 @@ function Puff_Member_2FA_Create($Username, $Connection) {
 	$Authenticatron = Authenticatron_New($Username);
 
 	////	Update Database
-	$Result = mysqli_query($Connection, 'UPDATE `Members` SET `2FA Secret`=\''.$Authenticatron['Secret'].'\' WHERE `Username`=\''.$Username.'\';');
+	mysqli_query($Connection, 'UPDATE `Members` SET `2FA Secret`=\''.$Authenticatron['Secret'].'\' WHERE `Username`=\''.$Username.'\';');
 
 	unset($Authenticatron['Secret']);
 	return $Authenticatron;

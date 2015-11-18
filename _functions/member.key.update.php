@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_Key_Update($Username, $Key, $Value) {
+function Puff_Member_Key_Update($Username, $Key, $Value, $Connection) {
 
 	$Username = Puff_Member_Sanitize_Username($Username);
 	$Value    = htmlentities($Key, ENT_QUOTES, 'UTF-8');
