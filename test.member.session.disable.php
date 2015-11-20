@@ -1,11 +1,7 @@
 <?php
 	require_once __DIR__.'/_puff/sitewide.php';
-	$Page['Type']  = 'Index';
-	$Page['Title'] = 'Puff Sys';
-	$Page['Description'] = 'Puff is Awesome';
-	require_once $Sitewide['Templates']['Header'];
+	$Page['Type']  = 'Test';
 
 	$Result = Puff_Member_Session_Disable($_GET['session'], $Sitewide['Database']['Connection']);
 	var_dump($Result);
 
-	require_once $Sitewide['Templates']['Footer'];

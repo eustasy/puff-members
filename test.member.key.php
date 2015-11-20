@@ -1,11 +1,8 @@
 <?php
 	require_once __DIR__.'/_puff/sitewide.php';
 	$Page['Type']  = 'Test';
-	//$Page['Title'] = 'Puff Sys';
-	//$Page['Description'] = 'Puff is Awesome';
-	//require_once $Sitewide['Templates']['Header'];
 
-	$Username = 'INTERNAL_TESTING';
+	$Username = '__AUTOTESTING__';
 	$Key = 'FavColor';
 	$Value = 'Blue';
 
@@ -33,5 +30,3 @@
 	echo 'Puff_Member_Key_Value'.PHP_EOL;
 	$Result = Puff_Member_Key_Value($Username, $Key, $Sitewide['Database']['Connection']);
 	var_dump($Result);
-
-	//require_once $Sitewide['Templates']['Footer'];
