@@ -26,6 +26,7 @@ function Puff_Member_Session_Create($Username, $Connection) {
 
 	////	Insert into Database
 	$Result = mysqli_query($Connection, 'INSERT INTO `Sessions` (`Username`, `Session`) VALUES (\''.$Username.'\', \''.$Session.'\');');
+	$Result = array('Result' => $Result, 'Session' => $Session);
 	return $Result;
 
 }
