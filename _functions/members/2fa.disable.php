@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_2FA_Disable($Username, $Code, $Connection) {
+function Puff_Member_2FA_Disable($Connection, $Username, $Code) {
 	global $Sitewide;
 
 	require_once $Sitewide['Puff']['Libs'].'authenticatron.php';
@@ -9,9 +9,9 @@ function Puff_Member_2FA_Disable($Username, $Code, $Connection) {
 	// For the sake of the space-time continuum,
 	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Username, $Connection, true);
+	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
 	if ( !$MemberExists ) {
-		return array('error' => 'Sorry, that user doesn\'t exist, so we can\'t make a session for it.');
+		return array('error' => 'Sorry, that user doesn\'t exist, so we can\'t disable 2FA for it.');
 	}
 
 	////	Get Secret

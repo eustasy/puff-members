@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_2FA_Enable($Username, $Code, $CurrentSession, $Connection) {
+function Puff_Member_2FA_Enable($Connection, $Username, $Code, $CurrentSession) {
 	global $Sitewide;
 
 	require_once $Sitewide['Puff']['Libs'].'authenticatron.php';
@@ -9,7 +9,7 @@ function Puff_Member_2FA_Enable($Username, $Code, $CurrentSession, $Connection) 
 	// For the sake of the space-time continuum,
 	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Username, $Connection, true);
+	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
 	if ( !$MemberExists ) {
 		return array('error' => 'Sorry, that user doesn\'t exist, so we can\'t make a session for it.');
 	}
@@ -25,7 +25,7 @@ function Puff_Member_2FA_Enable($Username, $Code, $CurrentSession, $Connection) 
 	$Check = Authenticatron_Check($Code, $Secret);
 	if ( $Check ) {
 		////	Disable existing Sessions
-		Puff_Member_Session_Disable_All($Username, $Connection, $CurrentSession);
+		Puff_Member_Session_Disable_All($Connection, $Username, $CurrentSession);
 		////	Update Database
 		$Result = mysqli_query($Connection, 'UPDATE `Members` SET `2FA Active`=\'1\' WHERE `Username`=\''.$Username.'\';');
 		return $Result;
