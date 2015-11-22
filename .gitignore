@@ -3,9 +3,12 @@ google68cf6f5d58f84416.html
 # Standard
 *custom*
 *~
+# puff-runonce
+test.runonce.php
+_functions/runonce/*
+_sql/Runonces.sql
 # puff-db
-_functions/db/mysqli_fetch_count.php
-_functions/db/mysqli_fetch_once.php
+_functions/db/*
 _puff/hooks/preload/connect-to-database.php
 _puff/settings/db.php
 # puff-core
