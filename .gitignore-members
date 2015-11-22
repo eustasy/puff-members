@@ -1,0 +1,7 @@
+# puff-members
+test.member*
+_functions/members/*
+_libs/authenticatron.php
+_libs/phpqrcode_2010100721_1.1.4.php
+_puff/settings/members.php
+_sql/Members.php
