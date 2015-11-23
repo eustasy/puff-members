@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession) {
+function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession = false) {
 
 	////	Check Member Existence
 	// For the sake of the space-time continuum,
