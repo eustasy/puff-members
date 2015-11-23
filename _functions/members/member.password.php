@@ -7,7 +7,7 @@ function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession
 	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
 	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
-	if ( $MemberExists ) {
+	if ( !$MemberExists ) {
 		return array('error' => 'Sorry, we can\'t change the password for a member that doesn\'t exist.');
 	}
 
