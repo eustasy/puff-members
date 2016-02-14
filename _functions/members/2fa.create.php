@@ -1,7 +1,7 @@
 <?php
 
 function Puff_Member_2FA_Create($Connection, $Username) {
-	global $Sitewide, $Base32_Chars, $PHPQRCode;
+	global $Sitewide;
 
 	require_once $Sitewide['Puff']['Libs'].'authenticatron.php';
 
