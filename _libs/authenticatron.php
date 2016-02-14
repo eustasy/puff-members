@@ -6,7 +6,7 @@
 // http://labs.eustasy.org/authenticatron/example
 
 // This is a short name to identify your site or service.
-$Sitewide['Title'] = 'Example Site';
+$Sitewide['Title'] = $Sitewide['Settings']['Site Title'];
 
 // Secret Length defaults to 16.
 // Code Length is set to 6.
