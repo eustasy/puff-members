@@ -1,0 +1,5 @@
+# [Puff Geo](https://github.com/eustasy/puff-geo)
+_libs/GeoLite2-City.mmdb
+_libs/geoip2.phar
+_hooks/preload/puff-geo.php
+_settings/geo*

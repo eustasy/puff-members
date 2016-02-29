@@ -1,0 +1,4 @@
+# [Puff DB](https://github.com/eustasy/puff-db)
+_functions/db/*
+_hooks/preload/connect-to-database.php
+_settings/db*
