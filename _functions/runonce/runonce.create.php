@@ -18,7 +18,7 @@ function Puff_Runonce_Create($Connection, $Session = false) {
 	////	Generate a Runonce
 	// The Runonce will be a 128 character hexidecimal hash from a secure source.
 	// Will return an error if no secure source is available.
-	$Runonce = Puff_Member_SecureRandom();
+	$Runonce = Puff_SecureRandom();
 	if ( !$Runonce ) {
 		return array('error' => 'Error: No secure source was available for Runonce generation. This is not your fault.');
 	}
