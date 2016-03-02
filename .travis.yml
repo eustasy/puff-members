@@ -3,29 +3,27 @@
 language: php
 
 php:
-  - 5.5
   - 5.6
   - 7.0
   - hhvm
 
 matrix:
   allow_failures:
-    - php: 7.0
     - php: hhvm
 
-before_install:
-  - pip install --user codecov
+services:
+  - mysql
+
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
+  - sh -c "mysql -e 'CREATE DATABASE IF NOT EXISTS PuffDB;'"
+  - php _tests/test.initialize.php
 
 script:
   - ./normal-checks/php.sh
   - php normal-checks/json.php
   - php normal-checks/xml.php
   - php _tests/runonce/test.runonce.php
-
-after_success:
-  - codecov
 
 notifications:
   email:
