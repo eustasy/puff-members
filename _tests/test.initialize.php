@@ -21,7 +21,7 @@ $queries[] = 'CREATE TABLE IF NOT EXISTS `KeyValues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
 $queries[] = 'CREATE TABLE IF NOT EXISTS `Members` (
 	`Username` varchar(128) NOT NULL,
-	`Active` int(1) NOT NULL DEFAULT '1',
+	`Active` int(1) NOT NULL DEFAULT \'1\',
 	`2FA Active` int(1) NOT NULL DEFAULT '0',
 	`2FA Secret` varchar(16) NOT NULL,
 	`PassHash` varchar(32) NOT NULL,
@@ -30,7 +30,7 @@ $queries[] = 'CREATE TABLE IF NOT EXISTS `Members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
 $queries[] = 'CREATE TABLE IF NOT EXISTS `Sessions` (
 	`Username` varchar(128) NOT NULL,
-	`Active` int(1) NOT NULL DEFAULT '1',
+	`Active` int(1) NOT NULL DEFAULT \'1\',
 	`Session` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;';
 $queries[] = 'ALTER TABLE `KeyValues`
