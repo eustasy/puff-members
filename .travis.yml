@@ -24,6 +24,10 @@ script:
   - php normal-checks/json.php
   - php normal-checks/xml.php
   - php _tests/runonce/test.runonce.php
+  - php _tests/members/test.member.php
+  - php _tests/members/test.member.2fa.php
+  - php _tests/members/test.member.key.php
+  - php _tests/members/test.member.session.php
 
 notifications:
   email:
