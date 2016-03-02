@@ -14,7 +14,7 @@ function Puff_Member_Session_Create($Connection, $Username) {
 	////	Generate a Session
 	// The Session will be a 128 character hexidecimal hash from a secure source.
 	// Will return an error if no secure source is available.
-	$Session = Puff_Member_SecureRandom();
+	$Session = Puff_SecureRandom();
 	if ( !$Session ) {
 		return array('error' => 'Error: No secure source was available for Session generation. Your password could not be secured. This is not your fault.');
 	}

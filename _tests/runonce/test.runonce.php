@@ -3,7 +3,7 @@ require_once __DIR__.'/../../_puff/sitewide.php';
 $Page['Type']  = 'Test';
 
 $Connection = $Sitewide['Database']['Connection'];
-$Username = '__AUTOTESTING__';
+$Username = '__AUTOTESTING_RUNONCE__';
 
 echo 'Puff_Runonce_Create'.PHP_EOL;
 $Result['Create'] = Puff_Runonce_Create($Connection);

@@ -15,7 +15,7 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 	////	Generate a Salt
 	// The salt will be a 128 character hexidecimal hash from a secure source.
 	// Will return an error if no secure source is available.
-	$Salt = Puff_Member_SecureRandom();
+	$Salt = Puff_SecureRandom();
 	if ( !$Salt ) {
 		return array('error' => 'Error: No secure source was available for Salt generation. Your password could not be secured. This is not your fault.');
 	}
