@@ -22,7 +22,7 @@ $queries[] = 'CREATE TABLE IF NOT EXISTS `KeyValues` (
 $queries[] = 'CREATE TABLE IF NOT EXISTS `Members` (
 	`Username` varchar(128) NOT NULL,
 	`Active` int(1) NOT NULL DEFAULT \'1\',
-	`2FA Active` int(1) NOT NULL DEFAULT '0',
+	`2FA Active` int(1) NOT NULL DEFAULT \'0\',
 	`2FA Secret` varchar(16) NOT NULL,
 	`PassHash` varchar(32) NOT NULL,
 	`Password` varchar(128) NOT NULL,
