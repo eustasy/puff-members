@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `Members` (
 CREATE TABLE IF NOT EXISTS `Sessions` (
   `Username` varchar(128) NOT NULL,
   `Active` int(1) NOT NULL DEFAULT '1',
+  `IP` varchar(128),
   `Session` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
