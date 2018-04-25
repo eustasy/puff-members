@@ -1,12 +1,12 @@
 <?php
 
 ////	Authenticatron
-// v0.7.3 - MIT Licensed - Property of eustasy
+// v0.7.6 - MIT Licensed - Property of eustasy
 // https://github.com/eustasy/authenticatron
 // http://labs.eustasy.org/authenticatron/example
 
 // This is a short name to identify your site or service.
-$Sitewide['Title'] = $Sitewide['Settings']['Site Title'];
+$Sitewide['Title'] = 'Example Site';
 
 // Secret Length defaults to 16.
 // Code Length is set to 6.
@@ -14,7 +14,7 @@ $Sitewide['Title'] = $Sitewide['Settings']['Site Title'];
 // Any other length is your own problem.
 
 // Where can we find PHPQRCode?
-$PHPQRCode = __DIR__.'/phpqrcode_2010100721_1.1.4.php';
+$PHPQRCode = __DIR__.'/_libs/phpqrcode_2010100721_1.1.4.php';
 
 ////	END CONFIGURATION
 
@@ -42,21 +42,27 @@ function Authenticatron_Secret($Length = 16) {
 
 	global $Base32_Chars;
 
-	// Use MCRYPT if you can.
-	if ( function_exists('mcrypt_create_iv') ) {
+	if (
+		!function_exists('random_bytes') &&
+		!function_exists('mcrypt_create_iv') &&
+		!function_exists('openssl_random_pseudo_bytes')
+	) {
+		return false;
+
+	} else if (function_exists('random_bytes')) {
+		$Random = random_bytes($Length);
+
+	} else if ( function_exists('mcrypt_create_iv') ) {
+		// Use MCRYPT as a secure source of random.
 		$Random = mcrypt_create_iv($Length, MCRYPT_DEV_URANDOM);
 
-	// Otherwise try to use OpenSSL
 	} else if ( function_exists('openssl_random_pseudo_bytes') ) {
+		// Otherwise try to use OpenSSL
 		$Random = openssl_random_pseudo_bytes($Length, $Strong);
 		if ( !$Strong ) {
 			// Fail if not strong.
 			return false;
 		}
-
-	// Otherwise fail.
-	} else {
-		return false;
 	}
 
 	// For each letter of the secret, generate a random Base32 Characters.
@@ -115,25 +121,23 @@ function Authenticatron_QR($URL, $Size = 4, $Margin = 0, $Level = 'M') {
 		!is_readable($PHPQRCode)
 	) {
 		return false;
+	}
 
 	// Otherwise proceed with PHPQRCode
-	} else {
 
-		// We've checked the file exists, so we can require instead of include.
-		// Something has gone horribly wrong if this doesn't work.
-		require_once $PHPQRCode;
+	// We've checked the file exists, so we can require instead of include.
+	// Something has gone horribly wrong if this doesn't work.
+	require_once $PHPQRCode;
 
-		// Use the object cache to capture the PNG without outputting it.
-		// Kind of hacky but the best way I can find without writing a new QR Library.
-		ob_start();
-		QRCode::png($URL, null, constant('QR_ECLEVEL_'.$Level), $Size, $Margin);
-		$QR_Base64 = base64_encode(ob_get_contents());
-		ob_end_clean();
+	// Use the object cache to capture the PNG without outputting it.
+	// Kind of hacky but the best way I can find without writing a new QR Library.
+	ob_start();
+	QRCode::png($URL, null, constant('QR_ECLEVEL_'.$Level), $Size, $Margin);
+	$QR_Base64 = base64_encode(ob_get_contents());
+	ob_end_clean();
 
-		// Return it as a Base64 PNG
-		return 'data:image/png;base64,'.$QR_Base64;
-
-	}
+	// Return it as a Base64 PNG
+	return 'data:image/png;base64,'.$QR_Base64;
 
 }
 
@@ -210,11 +214,10 @@ function Authenticatron_Code($Secret, $Timestamp = false, $CodeLength = 6) {
 
 	// Set the timestamp to something sensible.
 	// You should only over-ride this if you really know why.
-	if ( !$Timestamp ) {
+	if ( empty($Timestamp) ) {
 		$Timestamp = floor(time() / 30);
-	} else {
-		$Timestamp = intval($Timestamp);
 	}
+	$Timestamp = intval($Timestamp);
 
 	// Pack the Timestamp into a binary string
 	// N = Unsigned long (always 32 bit, big endian byte order)
@@ -299,21 +302,16 @@ function Authenticatron_Acceptable($Secret, $Variance = 2) {
 
 
 ////	Check a given Code against a Secret
-function Authenticatron_Check($Code, $Secret, $Variance = false) {
+function Authenticatron_Check($Code, $Secret, $Variance = 2) {
 
-	// Pass the Variance if it is set, allow to default if not.
-	if ( $Variance === false ) {
-		$Acceptable = Authenticatron_Acceptable($Secret);
-	} else {
-		$Acceptable = Authenticatron_Acceptable($Secret, $Variance);
-	}
+	$Acceptable = Authenticatron_Acceptable($Secret, $Variance);
 
 	// Return a simple boolean to avoid data-leakage or zero-equivalent code issues.
 	if ( in_array($Code, $Acceptable) ) {
 		return true;
-	} else {
-		return false;
 	}
+
+	return false;
 
 }
 
