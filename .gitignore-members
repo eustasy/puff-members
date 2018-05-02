@@ -1,7 +1,0 @@
-# [Puff Members](https://github.com/eustasy/puff-members)
-_functions/members/*
-_libs/authenticatron.php
-_libs/phpqrcode_2010100721_1.1.4.php
-_settings/members*
-_sql/Members.sql
-_tests/members/*
