@@ -5,12 +5,16 @@ sitemap.xml
 sitemap_*.xml
 
 # Exclude Everything
-*
+*/*
+*.*
 
 # Include these
 !_functions/members/*
 !_tests/members/*
 !_settings/members.default.php
+
+!_cron/hourly/
+_cron/hourly/*
 
 !_cron/hourly/sessions.php
 !_libs/authenticatron.php
