@@ -1,5 +1,6 @@
 <?php
 
+////	Set a new Password for an existing Member
 function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession = false) {
 
 	////	Check Member Existence
