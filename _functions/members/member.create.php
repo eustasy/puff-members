@@ -8,15 +8,16 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 	$Username = Puff_Member_Sanitize_Username($Username);
 	$MemberExists = Puff_Member_Exists($Connection, $Username);
 	if ( $MemberExists ) {
-		// TODO Try to log-in instead.
-		return array('error' => 'Sorry, that username is not available. Please choose a different username, or login if this is your username.');
+		$Msg = 'Sorry, that username is not available.';
+		$Msg .= ' Please choose a different username, or login if this is your username.';
+		return array('error' => $Msg);
 	}
 
 	////	Hash Password
 	$Hashed = Puff_Member_PassHash($Password);
 
 	////	Insert into Database
-	$Result = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`, `Password`, `Salt`, `PassHash`) VALUES (\''.$Username.'\', \''.$Hashed['Password'].'\', \''.$Salt.'\', \''.$Hashed['PassHash'].'\');');
+	$Result['Member'] = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`) VALUES (\''.$Username.'\');');
+	$Result['Password'] = Puff_Member_Password($Connection, $Username, $Hashed['Password'], $Hashed['Salt'], $Hashed['Method']);
 	return $Result;
-
 }
