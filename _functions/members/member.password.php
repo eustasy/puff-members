@@ -1,6 +1,7 @@
 <?php
 
 function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession = false) {
+	global $Sitewide, $Time;
 
 	////	Check Member Existence
 	// For the sake of the space-time continuum,
@@ -17,8 +18,24 @@ function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession
 	////	Disable existing Sessions
 	Puff_Member_Session_Disable_All($Connection, $Username, $CurrentSession);
 
-	////	Update Database
-	$Result = mysqli_query($Connection, 'UPDATE `Members` SET `Password`=\''.$Hashed['Password'].'\', `Salt`=\''.$Salt.'\', `PassHash`=\''.$Hashed['PassHash'].'\' WHERE `Username`=\''.$Username.'\';');
-	return $Result;
+	////	Insert new password into Database
+	$New = 'INSERT INTO `Passwords` (`Username`, `Method`, `Hash`, `Salt`, `Created`) VALUES ';
+	$New .= '(\''.$Username.'\', \''.$Hashed['Password'].'\', \''.$Hashed['Salt'].'\', ';
+	$New .= '\''.$Hashed['Method'].'\', \''.$Time.'\');';
+	$New = mysqli_query($Connection, $New);
 
+	////	Clean up older passwords
+	$CleanUp = 'DELETE FROM `Passwords` WHERE ';
+	// TOO OLD
+	$CleanUp .= '( `Username` = \''.$Username.'\' AND ';
+	$CleanUp .= '`Created` <= '.( $Time - $Sitewide['Settings']['Members']['Password Retention']['Oldest'] ).') OR ';
+	// PLAIN
+	$CleanUp .= '`Method` = \'PLAIN\';';
+	$CleanUp = mysqli_query($Connection, $CleanUp);
+
+	$Result = array(
+		'New' => $New,
+		'CleanUp' => $CleanUp,
+	);
+	return $Result;
 }
