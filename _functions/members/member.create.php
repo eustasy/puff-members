@@ -18,6 +18,12 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 
 	////	Insert into Database
 	$Result['Member'] = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`) VALUES (\''.$Username.'\');');
-	$Result['Password'] = Puff_Member_Password($Connection, $Username, $Hashed['Password'], $Hashed['Salt'], $Hashed['Method']);
+	$Result['Password'] = Puff_Member_Password(
+		$Connection,
+		$Username,
+		$Hashed['Method'],
+		$Hashed['Hash'],
+		$Hashed['Salt']
+	);
 	return $Result;
 }

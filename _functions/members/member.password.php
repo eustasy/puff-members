@@ -21,8 +21,8 @@ function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession
 
 	////	Insert new password into Database
 	$New = 'INSERT INTO `Passwords` (`Username`, `Method`, `Hash`, `Salt`, `Created`) VALUES ';
-	$New .= '(\''.$Username.'\', \''.$Hashed['Password'].'\', \''.$Hashed['Salt'].'\', ';
-	$New .= '\''.$Hashed['Method'].'\', \''.$Time.'\');';
+	$New .= '(\''.$Username.'\', \''.$Hashed['Method'].'\', \''.$Hashed['Hash'].'\', ';
+	$New .= '\''.$Hashed['Salt'].'\', \''.$Time.'\');';
 	$New = mysqli_query($Connection, $New);
 
 	////	Clean up older passwords

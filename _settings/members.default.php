@@ -4,6 +4,8 @@
 //
 // Support BCRYPT Password Storage
 $Sitewide['Settings']['Members']['Password Retention']['BCRYPT'] = true;
+// Hardware cost for BCRYPT
+$Sitewide['Settings']['Members']['Password Retention']['BCRYPT Cost'] = 10;
 // Support PLAIN Password Storage
 $Sitewide['Settings']['Members']['Password Retention']['PLAIN'] = true;
 // Oldest date to keep a password from.
