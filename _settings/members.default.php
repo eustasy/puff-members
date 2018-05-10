@@ -2,8 +2,10 @@
 
 ////	Puff Members Settings
 //
-// BCRYPT
+// Support BCRYPT Password Storage
 $Sitewide['Settings']['Members']['Password Retention']['BCRYPT'] = true;
+// Support PLAIN Password Storage
+$Sitewide['Settings']['Members']['Password Retention']['PLAIN'] = true;
 // Oldest date to keep a password from.
 // 365 days = 60*60*24*365 = 44676000
 // DO NOT SET TO 0

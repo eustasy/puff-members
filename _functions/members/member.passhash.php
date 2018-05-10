@@ -36,7 +36,10 @@ function Puff_Member_PassHash($Password, $Salt = false, $Method = false) {
 		return array('Password' => $Password, 'Salt' => $Salt, 'Method' => $Method);
 
 	////	PLAIN
-	} elseif ( $Method = 'PLAIN' ) {
+	} elseif (
+		$Sitewide['Settings']['Members']['Password Retention']['PLAIN'] &&
+		$Method = 'PLAIN'
+	) {
 		return array('Password' => $Password, 'Salt' => '', 'Method' => 'PLAIN');
 	}
 }
