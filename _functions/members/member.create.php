@@ -14,10 +14,10 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 	}
 
 	////	Hash Password
-	$Hashed = Puff_Member_PassHash($Password);
+	$Hashed = Puff_Member_Password_Hash($Password);
 
 	////	Insert into Database
 	$Result['Member'] = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`) VALUES (\''.$Username.'\');');
-	$Result['Password'] = Puff_Member_Password($Connection, $Username, $Hashed['Password'], $Hashed['Salt'], $Hashed['Method']);
+	$Result['Password'] = Puff_Member_Password_Set($Connection, $Username, $Hashed['Password'], $Hashed['Salt'], $Hashed['Method']);
 	return $Result;
 }

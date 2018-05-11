@@ -1,7 +1,7 @@
 <?php
 
 ////	Set a new Password for an existing Member
-function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession = false) {
+function Puff_Member_Password_Set($Connection, $Username, $Password, $CurrentSession = false) {
 	global $Sitewide, $Time;
 
 	////	Check Member Existence
@@ -14,7 +14,7 @@ function Puff_Member_Password($Connection, $Username, $Password, $CurrentSession
 	}
 
 	////	Hash Password
-	$Hashed = Puff_Member_PassHash($Password);
+	$Hashed = Puff_Member_Password_Hash($Password);
 
 	////	Disable existing Sessions
 	Puff_Member_Session_Disable_All($Connection, $Username, $CurrentSession);

@@ -1,7 +1,7 @@
 <?php
 
 ////	Hash a Password
-function Puff_Member_PassHash($Password, $Salt = false, $Method = false) {
+function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 	global $Sitewide;
 
 	////	BCRYPT
