@@ -1,6 +1,7 @@
 <?php
 
 function Puff_Member_Create($Connection, $Username, $Password) {
+	global $Sitewide, $Time;
 
 	////	Check Member Existence
 	// For the sake of the space-time continuum,
@@ -13,17 +14,12 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 		return array('error' => $Msg);
 	}
 
-	////	Hash Password
-	$Hashed = Puff_Member_Password_Hash($Password);
-
 	////	Insert into Database
 	$Result['Member'] = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`) VALUES (\''.$Username.'\');');
 	$Result['Password'] = Puff_Member_Password_Set(
 		$Connection,
 		$Username,
-		$Hashed['Method'],
-		$Hashed['Hash'],
-		$Hashed['Salt']
+		$Password
 	);
 	return $Result;
 }

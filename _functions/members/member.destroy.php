@@ -16,6 +16,7 @@ function Puff_Member_Destroy($Connection, $Username) {
 
 	////	Destroy the User
 	$Result = mysqli_query($Connection, 'DELETE FROM `Members` WHERE `Username`=\''.$Username.'\';');
+	// TODO Destoy old passwords too
 	return $Result;
 
 }
