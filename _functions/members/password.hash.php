@@ -12,7 +12,12 @@ function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 			!$Method
 		)
 	) {
-		return array('Password' => $Password, 'Salt' => '', 'Method' => 'BCRYPT');
+		$Password = password_hash(
+			$Password,
+			PASSWORD_BCRYPT,
+			array('cost' => $Sitewide['Settings']['Members']['Password Retention']['BCRYPT Cost'])
+		);
+		return array('Hash' => $Password, 'Salt' => '', 'Method' => 'BCRYPT');
 
 	////	Sha512
 	// Hash the password,
@@ -33,13 +38,13 @@ function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 		}
 		$Password = hash($Method, $Password);
 		$Password = hash($Method, $Password . $Salt);
-		return array('Password' => $Password, 'Salt' => $Salt, 'Method' => $Method);
+		return array('Hash' => $Password, 'Salt' => $Salt, 'Method' => $Method);
 
 	////	PLAIN
 	} elseif (
 		$Sitewide['Settings']['Members']['Password Retention']['PLAIN'] &&
 		$Method = 'PLAIN'
 	) {
-		return array('Password' => $Password, 'Salt' => '', 'Method' => 'PLAIN');
+		return array('Hash' => $Password, 'Salt' => '', 'Method' => 'PLAIN');
 	}
 }
