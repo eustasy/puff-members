@@ -1,24 +1,12 @@
 <?php
 
-////	Use a Password for an existing Member
-function Puff_Member_Password_Use($Connection, $Username, $Password) {
+////	Modify the `Last used` time on a given password
+function Puff_Member_Password_Use($Connection, $Username, $Hash) {
 	global $Sitewide, $Time;
 
-	////	Check Member Existence
-	// For the sake of the space-time continuum,
-	// new users should not already exist.
-	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
-	if ( !$MemberExists ) {
-		return array('error' => 'Sorry, we can\'t change the password for a member that doesn\'t exist.');
-	}
+	$Update = 'UPDATE `Passwords` SET `Last used`=\''.$Time.'\' WHERE ';
+	$Update .= '`Username`=\''.$Username.'\' AND `Hash` = \''.$Hash.'\';';
+	$Update = mysqli_query($Connection, $Update);
 
-	////	Get the latest password information for that member.
-	$Hashed = Puff_Member_Password_Get($Connection, $Username);
-	////	Verify the entered password against the retrieved hash.
-	$Verify = Puff_Member_Password_Verify($Password, $Hashed['Hash'], $Hashed['Salt'], $Hashed['Method']);
-
-	////	TODO Autoupgrade
-
-	return $Verify;
+	return $Update;
 }

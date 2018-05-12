@@ -16,8 +16,8 @@ $Result['Get'] = Puff_Member_Password_Get($Connection, $Username);
 var_dump($Result['Get']); // true
 echo PHP_EOL;
 
-echo 'Puff_Member_Password_Use'.PHP_EOL;
-$Result['Use'] = Puff_Member_Password_Use($Connection, $Username, $Password);
+echo 'Puff_Member_Password_Login'.PHP_EOL;
+$Result['Use'] = Puff_Member_Password_Login($Connection, $Username, $Password);
 var_dump($Result['Use']); // true
 echo PHP_EOL;
 

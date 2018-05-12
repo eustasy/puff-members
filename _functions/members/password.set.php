@@ -1,14 +1,12 @@
 <?php
 
 ////	Set a new Password for an existing Member
-function Puff_Member_Password_Set($Connection, $Username, $Password, $CurrentSession = false) {
+function Puff_Member_Password_Set($Connection, $Username, $Password, $LastUsed = 0, $CurrentSession = false) {
 	global $Sitewide, $Time;
 
 	////	Check Member Existence
-	// For the sake of the space-time continuum,
-	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
+	$MemberExists = Puff_Member_Exists($Connection, $Username);
 	if ( !$MemberExists ) {
 		return array('error' => 'Sorry, we can\'t change the password for a member that doesn\'t exist.');
 	}
@@ -20,9 +18,9 @@ function Puff_Member_Password_Set($Connection, $Username, $Password, $CurrentSes
 	Puff_Member_Session_Disable_All($Connection, $Username, $CurrentSession);
 
 	////	Insert new password into Database
-	$New = 'INSERT INTO `Passwords` (`Username`, `Method`, `Hash`, `Salt`, `Created`) VALUES ';
+	$New = 'INSERT INTO `Passwords` (`Username`, `Method`, `Hash`, `Salt`, `Created`, `Last used`) VALUES ';
 	$New .= '(\''.$Username.'\', \''.$Hashed['Method'].'\', \''.$Hashed['Hash'].'\', ';
-	$New .= '\''.$Hashed['Salt'].'\', \''.$Time.'\');';
+	$New .= '\''.$Hashed['Salt'].'\', \''.$Time.'\', \''.$LastUsed.'\');';
 	$New = mysqli_query($Connection, $New);
 
 	////	Clean up older passwords

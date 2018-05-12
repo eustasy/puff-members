@@ -5,10 +5,8 @@ function Puff_Member_Password_Get($Connection, $Username) {
 	global $Sitewide, $Time;
 
 	////	Check Member Existence
-	// For the sake of the space-time continuum,
-	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
+	$MemberExists = Puff_Member_Exists($Connection, $Username);
 	if ( !$MemberExists ) {
 		return array('error' => 'Sorry, we can\'t change the password for a member that doesn\'t exist.');
 	}

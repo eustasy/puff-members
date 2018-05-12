@@ -21,6 +21,8 @@ _cron/hourly/*
 !_libs/phpqrcode_2010100721_1.1.4.php
 !_sql/Members.sql
 
+!api/upgrade_plain_passwords.php
+
 !.codeclimate.yml
 !.stylelintignore
 !.codacy.yml

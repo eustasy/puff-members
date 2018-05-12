@@ -19,7 +19,7 @@ function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 		);
 		return array('Hash' => $Password, 'Salt' => '', 'Method' => 'BCRYPT');
 
-	////	Sha512
+	////	sha512
 	// Hash the password,
 	// then hash the result and the salt
 	// (which is already a hexadecimal)

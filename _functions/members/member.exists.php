@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_Exists($Connection, $Username, $Active = false) {
+function Puff_Member_Exists($Connection, $Username, $Active = true) {
 	$SQL = 'SELECT * FROM `Members` WHERE `Username`=\''.$Username.'\'';
 	if ( $Active ) {
 		$SQL .= ' AND `Active`=\'1\'';

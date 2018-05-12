@@ -3,10 +3,8 @@
 function Puff_Member_Session_Create($Connection, $Username) {
 
 	////	Check Member Existence
-	// For the sake of the space-time continuum,
-	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username, true);
+	$MemberExists = Puff_Member_Exists($Connection, $Username);
 	if ( !$MemberExists ) {
 		return array('error' => 'Sorry, that user doesn\'t exist, so we can\'t make a session for it.');
 	}

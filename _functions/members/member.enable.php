@@ -3,10 +3,8 @@
 function Puff_Member_Enable($Connection, $Username) {
 
 	////	Check Member Existence
-	// For the sake of the space-time continuum,
-	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username);
+	$MemberExists = Puff_Member_Exists($Connection, $Username, false);
 	if ( !$MemberExists ) {
 		return array('warning' => 'Sorry, that user does not exist.');
 	}

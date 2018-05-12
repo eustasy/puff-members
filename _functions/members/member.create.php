@@ -7,7 +7,7 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 	// For the sake of the space-time continuum,
 	// new users should not already exist.
 	$Username = Puff_Member_Sanitize_Username($Username);
-	$MemberExists = Puff_Member_Exists($Connection, $Username);
+	$MemberExists = Puff_Member_Exists($Connection, $Username, false);
 	if ( $MemberExists ) {
 		$Msg = 'Sorry, that username is not available.';
 		$Msg .= ' Please choose a different username, or login if this is your username.';
