@@ -15,5 +15,12 @@ $Sitewide['Settings']['Members']['Password Retention']['Oldest'] = 44676000;
 // Prompt the user when using an old password to try and log in.
 $Sitewide['Settings']['Members']['Password Retention']['Prompt on old password'] = false;
 
+////	Enable the LDAP Integration
+$Sitewide['Settings']['Members']['LDAP Integration']['Enabled'] = false;
+// An address like 'ldap://192.168.1.1'
+$Sitewide['Settings']['Members']['LDAP Integration']['Address'] = 'ldap://192.168.1.1';
+// A login domain like 'mydomainname'
+$Sitewide['Settings']['Members']['LDAP Integration']['Domain'] = 'mydomainname';
+
 // Version
 $Sitewide['Version']['Members'] = '0.5.0';

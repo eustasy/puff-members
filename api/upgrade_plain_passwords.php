@@ -4,8 +4,8 @@ require_once __DIR__.'/../_puff/sitewide.php';
 $Connection = $Sitewide['Database']['Connection'];
 
 ////	Get a list of every PLAIN password
-$PlainPasswords = 'SELECT * FROM `Passwords` WHERE';
-$PlainPasswords .= '`Method` =\'PLAIN\' ';
+$PlainPasswords = 'SELECT * FROM `Passwords` ';
+$PlainPasswords .= 'WHERE `Method` =\'PLAIN\' ';
 $PlainPasswords .= 'ORDER BY `Created` DESC;';
 $PlainPasswords = mysqli_query($Connection, $PlainPasswords);
 

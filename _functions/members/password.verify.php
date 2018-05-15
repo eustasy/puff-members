@@ -9,7 +9,7 @@ function Puff_Member_Password_Verify($Password, $Hash, $Salt, $Method) {
 	if (
 		$Sitewide['Settings']['Members']['Password Retention']['BCRYPT'] &&
 		(
-			$Method = 'BCRYPT' ||
+			$Method == 'BCRYPT' ||
 			!$Method
 		)
 	) {
@@ -19,7 +19,7 @@ function Puff_Member_Password_Verify($Password, $Hash, $Salt, $Method) {
 
 	////	Non-BCRYPT
 	$Entry = Puff_Member_Password_Hash($Password, $Salt, $Method);
-	if ( $Entry['Hash'] == $Hashed['Hash'] ) {
+	if ( $Entry['Hash'] == $Hash ) {
 		return true;
 	}
 

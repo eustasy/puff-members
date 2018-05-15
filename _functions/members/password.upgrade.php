@@ -5,12 +5,12 @@ function Puff_Member_Password_Upgrade($Method, $Hash) {
 	global $Sitewide;
 
 	////	PLAIN
-	if ( $Method = 'PLAIN' ) {
+	if ( $Method == 'PLAIN' ) {
 		return true;
 	}
 
 	////	sha512
-	if ( $Method = 'sha512') {
+	if ( $Method == 'sha512') {
 		if ( $Sitewide['Settings']['Members']['Password Retention']['BCRYPT'] ) {
 			return true;
 		}
@@ -18,7 +18,7 @@ function Puff_Member_Password_Upgrade($Method, $Hash) {
 	}
 
 	////	BCRYPT
-	if ( $Method = 'BCRYPT' ) {
+	if ( $Method == 'BCRYPT' ) {
 		return password_needs_rehash(
 			$Hash,
 			PASSWORD_BCRYPT,

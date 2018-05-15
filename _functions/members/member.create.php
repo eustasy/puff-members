@@ -1,6 +1,6 @@
 <?php
 
-function Puff_Member_Create($Connection, $Username, $Password) {
+function Puff_Member_Create($Connection, $Username, $Password = false) {
 	global $Sitewide, $Time;
 
 	////	Check Member Existence
@@ -16,10 +16,12 @@ function Puff_Member_Create($Connection, $Username, $Password) {
 
 	////	Insert into Database
 	$Result['Member'] = mysqli_query($Connection, 'INSERT INTO `Members` (`Username`) VALUES (\''.$Username.'\');');
-	$Result['Password'] = Puff_Member_Password_Set(
-		$Connection,
-		$Username,
-		$Password
-	);
+	if ( !empty($Password) ) {
+		$Result['Password'] = Puff_Member_Password_Set(
+			$Connection,
+			$Username,
+			$Password
+		);
+	}
 	return $Result;
 }

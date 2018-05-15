@@ -8,7 +8,7 @@ function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 	if (
 		$Sitewide['Settings']['Members']['Password Retention']['BCRYPT'] &&
 		(
-			$Method = 'BCRYPT' ||
+			$Method == 'BCRYPT' ||
 			!$Method
 		)
 	) {
@@ -24,10 +24,10 @@ function Puff_Member_Password_Hash($Password, $Salt = false, $Method = false) {
 	// then hash the result and the salt
 	// (which is already a hexadecimal)
 	} elseif (
-		$Method = 'sha512' ||
+		$Method == 'sha512' ||
 		!$Method
 	) {
-		$Method = 'sha512';
+		$Method == 'sha512';
 		if ( !$Salt ) {
 			$Salt = Puff_SecureRandom();
 			if ( !$Salt ) {

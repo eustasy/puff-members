@@ -15,13 +15,21 @@ sitemap_*.xml
 
 !_cron/hourly/
 _cron/hourly/*
-
 !_cron/hourly/sessions.php
+
+!_hooks/preload/
+_hooks/preload/*
+!_hooks/preload/members/*
+!_hooks/ldap-login/
+_hooks/ldap-login/*
+!_hooks/ldap-login/members/*
+
 !_libs/authenticatron.php
 !_libs/phpqrcode_2010100721_1.1.4.php
 !_sql/Members.sql
 
 !api/upgrade_plain_passwords.php
+!members/log-in.php
 
 !.codeclimate.yml
 !.stylelintignore
